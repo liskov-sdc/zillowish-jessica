@@ -11,10 +11,12 @@
     "react-dev": "webpack -d --watch"
   },
   "dependencies": {
+    "aws-sdk": "^2.403.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "react": "^16.8.1",
-    "react-dom": "^16.8.1"
+    "react-dom": "^16.8.1",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
