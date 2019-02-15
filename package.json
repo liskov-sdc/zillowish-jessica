@@ -11,6 +11,8 @@
     "react-dev": "webpack -d --watch"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "react": "^16.8.1",
     "react-dom": "^16.8.1"
   },
@@ -21,6 +23,7 @@
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "nodemon": "^1.18.10",
     "webpack": "^4.29.3",
     "webpack-cli": "^3.2.3"
   }
