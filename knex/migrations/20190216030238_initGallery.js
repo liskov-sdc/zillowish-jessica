@@ -1,4 +1,4 @@
-
+/* file created by running: knex migrate:make initGallery --env development */
 exports.up = function(knex, Promise) {
   return Promise.all([
       knex.schema.createTable('houses', (table) => {
@@ -11,7 +11,8 @@ exports.up = function(knex, Promise) {
         table.integer('img_order');
         table.integer('house_id');
         table.foreign('house_id').references('house_id').inTable('houses');
-      })
+      }),
+      knex.seed.run() 
   ]);
 };
 
