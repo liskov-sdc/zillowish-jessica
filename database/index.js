@@ -1,6 +1,5 @@
 const knex = require('../knex/knex.js');
 
-/* create function to retrieve specific house images */
 var getImg = (houseId, cb) => {
     // SELECT img_url, img_order from `photos` where house_id = {houseID} 
     return knex('photos').where({

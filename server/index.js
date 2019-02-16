@@ -14,7 +14,7 @@ app.get('/house/:houseID', function (req, res) {
   console.log('reqP: ',req.params,'id: ', id);
   db.getImg(id,(data)=>{
     console.log('D: ',data);
-    res.send('Hello World');
+    res.send(data);
   });
 });
  

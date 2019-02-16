@@ -9,7 +9,9 @@
   },
   "scripts": {
     "react-dev": "webpack -d --watch",
-    "start": "nodemon server/index.js"
+    "node-start": "nodemon server/index.js",
+    "db-start": "knex migrate:latest --env development",
+    "db-seed": ""
   },
   "dependencies": {
     "body-parser": "^1.18.3",
