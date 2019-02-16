@@ -2,18 +2,13 @@
 var db = require('./config');
 
 module.exports = {
-
   development: {
-    client: 'pg',
+    client: 'postgresql',
     connection: {
-      host : '127.0.0.1',
-      user : `${db.user}`,
-      password : `${db.password}`,
-      database : `${db.database}`,
-      charset: 'utf8'
+      database: 'zillowgallery'
     },
     migrations: {
-      directory: __dirname + '/knex/migrations',
+      directory: __dirname + '/knex/migrations'
     },
     seeds: {
       directory: __dirname + '/knex/seeds'
