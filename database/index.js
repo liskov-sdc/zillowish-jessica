@@ -14,4 +14,18 @@ var getImg = (houseId, cb) => {
       });
 };
 
-module.exports = {getImg};
+var changeOrder = (houseID, imgURL, order) => {
+  //update `photos` set `img_order` = {order} where `img_url` = {imgURL} AND `house_id` = {houseID}
+  return knex('photos').where({
+    img_url: imgURL,
+    house_id: houseID
+  })
+  .update({
+    img_order: order
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+};
+
+module.exports = {getImg, changeOrder};

@@ -11,8 +11,7 @@ exports.up = function(knex, Promise) {
         table.integer('img_order');
         table.integer('house_id');
         table.foreign('house_id').references('house_id').inTable('houses');
-      }),
-      knex.seed.run() 
+      })
   ]);
 };
 

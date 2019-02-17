@@ -2,9 +2,9 @@
 exports.seed = function(knex, Promise) {
   var houseList = [];
   var photoList = [];
-  var dataSize = 10;
+  var dataSize = 100;
   for(var i= 0; i < dataSize; i++) {
-    houseList.push({name: (i+1).toString()});
+    houseList.push({'name': (i+1).toString()});
     var a = getPhotos(i+1);
     photoList = photoList.concat(a);
   }

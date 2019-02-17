@@ -9,8 +9,8 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 var port = 3002;
  
-app.get('/house/:houseID', function (req, res) {
-  var id = Number(req.params.houseID);
+app.get('/gallery/:id', function (req, res) {
+  var id = Number(req.params.id);
   console.log('reqP: ',req.params,'id: ', id);
   db.getImg(id,(data)=>{
     console.log('D: ',data);
