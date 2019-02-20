@@ -17,6 +17,11 @@ app.get('/gallery/:id', function (req, res) {
     res.send(data);
   });
 });
+
+app.post('/gallery/update/:order',(req, res) => {
+  console.log('reqP: ', req.params, 'id: ', order);
+  res.send('imgs');
+});
  
 app.listen(port, ()=>{
   console.log(`Listening on Port: ${port}`);
