@@ -22,10 +22,10 @@ app.get('/gallery/:id', function (req, res) {
 
 app.post('/admin/update',(req, res) => {
   var pic = {
-    imgURL: req.body.img,
-    houseID: req.body.id,
-    newOrder: req.body.new,
-    oldOrder: req.body.old
+    imgUrl: req.body.img,
+    houseId: req.body.id,
+    newOrder: req.body.newOrder,
+    oldOrder: req.body.oldOrder
   };
   db.changeOrder(pic, (err, data)=> {
     if(err) {
