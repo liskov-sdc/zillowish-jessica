@@ -1,31 +1,47 @@
 const knex = require('../knex/knex.js');
 
 var getImg = (houseId, cb) => {
-  // SELECT img_url, img_order from `photos` where house_id = {houseID} 
   return knex('photos').where({
     house_id: houseId
   })
     .select('img_url', 'img_order')
     .then((rows) => {
-      cb(rows);
+      cb(null, rows);
     })
     .catch((error) => {
-      console.error(error);
+      cb(error);
     });
 };
 
-var changeOrder = (houseID, imgURL, order) => {
-  //update `photos` set `img_order` = {order} where `img_url` = {imgURL} AND `house_id` = {houseID}
-  return knex('photos').where({
-    img_url: imgURL,
-    house_id: houseID
-  })
-    .update({
-      img_order: order
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+var changeOrder = (obj, cb) => {
+  //we expect old/new order num,imgURL, houseID,callback
+  //we want to compare prior to new
+  //if prior > new 
+    //func  to add
+      //get gallery list of houseID where order is between prior to new
+  //else
+    //func to subtract
+      //get gallery list of houseID where order is between prior to new
+
+  //for loop over gallery with modified list
+    //modify specific img url with new order
+
+  //lastly return new list to client
+
+  // return knex('photos').where({
+  //   img_url: obj.imgURL,
+  //   house_id: obj.houseID
+  // })
+  //   .update({
+  //     img_order: obj.order
+  //   })
+  //   .select('img_url', 'img_order')
+  //   .then((rows) => {
+  //     cb(null, rows);
+  //   })
+  //   .catch((error) => {
+  //     cb(error);
+  //   });
 };
 
 module.exports = {getImg, changeOrder};

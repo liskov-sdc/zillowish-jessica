@@ -11,16 +11,29 @@ var port = 3002;
  
 app.get('/gallery/:id', function (req, res) {
   var id = Number(req.params.id);
-  console.log('reqP: ', req.params, 'id: ', id);
-  db.getImg(id, (data)=>{
-    console.log('D: ', data);
-    res.send(data);
+  db.getImg(id, (err,data)=> {
+    if(err) {
+      res.sendStatus(400);
+    } else {
+      res.send(data);
+    }
   });
 });
 
-app.post('/gallery/update/:order',(req, res) => {
-  console.log('reqP: ', req.params, 'id: ', order);
-  res.send('imgs');
+app.post('/admin/update',(req, res) => {
+  var pic = {
+    imgURL: req.body.img,
+    houseID: req.body.id,
+    newOrder: req.body.new,
+    oldOrder: req.body.old
+  };
+  db.changeOrder(pic, (err, data)=> {
+    if(err) {
+      res.sendStatus(400);
+    } else {
+      res.send(data);
+    }
+  });
 });
  
 app.listen(port, ()=>{

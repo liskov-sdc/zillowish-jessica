@@ -7,10 +7,7 @@ describe('Zillow Clone Database Seeding', () => {
   var dbConnect;
   
   beforeEach(function(done) {
-    dbConnect = new Client({
-      host: 'localhost',
-      database: 'zillowgallery'
-    });
+    dbConnect = new Client(config);
     dbConnect.connect()
       .then(()=>{
         done();

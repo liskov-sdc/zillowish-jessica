@@ -3,7 +3,7 @@ var db = require('./config');
 
 module.exports = {
   development: {
-    client: 'postgresql',
+    client: 'pg',
     connection: db,
     migrations: {
       directory: __dirname + '/knex/migrations'
@@ -14,7 +14,7 @@ module.exports = {
   },
 
   staging: {
-    client: 'postgresql',
+    client: 'pg',
     connection: db,
     pool: {
       min: 2,
@@ -26,7 +26,7 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: db,
     pool: {
       min: 2,
