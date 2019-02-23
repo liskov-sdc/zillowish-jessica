@@ -11,9 +11,10 @@ var port = 3002;
  
 app.get('/gallery/:id', function (req, res) {
   var id = Number(req.params.id);
-  db.getImg(id, (err,data)=> {
+  console.log('id= ',id);
+  db.getImg(id, (err, data)=> {
     if(err) {
-      res.sendStatus(400);
+      res.status(400).end();
     } else {
       res.send(data);
     }

@@ -160,6 +160,15 @@ describe('Zillow Clone Server', () => {
       expect(list).to.deep.equal(expected);
       done();
     });
+  });
+
+  it('should not get gallery from non existent house_id', (done) =>{
+    request.get({
+      url: 'http://localhost:3002/gallery/-1'
+    }, function (error, response, body) {
+      expect(response.statusCode).to.equal(400);
+      done();
+    });
 
   });
 

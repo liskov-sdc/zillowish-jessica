@@ -1,15 +1,18 @@
 const knex = require('../knex/knex.js');
 
 var getImg = (houseId, cb) => {
+
   return knex('photos').where({
     house_id: houseId
   })
     .select ('img_url', 'img_order')
     .orderBy('img_order')
     .then ((rows) => {
+      //is passing when houseId does not exist?
       cb (null, rows);
     })
     .catch ( (error) => {
+      console.log('ERROR: ',error)
       cb (error);
     });
 };
@@ -23,7 +26,7 @@ var changeOrder = (pic, cb) => {
       return getBtwn (status, (err, result) => {
         if (err) {
           return cb (err);
-        } else if (result.length < pic.oldOrder) {
+        } else if (result.length < pic.oldOrder || pic.oldOrder < 0) {
           return cb('Order number is out of range');
         } else {
           return updateOrder(pic, pic.newOrder, (err) => {
