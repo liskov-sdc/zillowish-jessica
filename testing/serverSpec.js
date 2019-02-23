@@ -1,27 +1,42 @@
 /* Make sure node server is running */
-var db = require('pg');
+const { Client } = require('pg');
 var request = require('request'); 
 var expect = require('chai').expect;
 var config = require('../config');
+const knex = require('../knex/knex.js');
 
 describe('Zillow Clone Server', () => {
   var dbConnect;
   
+  //currently we drop db and create new tb with psql
+  //then we run knex to seed database
+  
   beforeEach((done) => {
-    dbConnect = new db(config);
-    dbConnect.connect();   
+    dbConnect = new Client(config);
+    dbConnect.connect()
+      .then(()=>{
+        // dbConnect.query('DELETE FROM photos')
+        // .then(()=>{
+        //   dbConnect.query('SELECT * FROM photos')
+        //     .then((result) => {
+        //       knex.seed.run().then(()=>{ 
+        //         done();
+        //       });
+        //     });
+          
+        // });
+        // //  
+        done();
+      });
   });
   
   afterEach(()=> {
-    dbConnect.end();
+    dbConnect.query('DELETE FROM photos')
+        .then(()=>{
+          dbConnect.end();
+    });
+    //drop db
   });
-  
-  //test helper functions
-  //what happens if you give a non exisitent number or an invalid input?
-  //what happens if you try getting a non existent house?
-  //what happens if you place/give an order number thats too large/dup/small/nonexistent val
-  it('', (done) => {
-  
-  });
-  
+
+
 });

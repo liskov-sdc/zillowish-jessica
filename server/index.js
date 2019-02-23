@@ -20,17 +20,19 @@ app.get('/gallery/:id', function (req, res) {
   });
 });
 
-app.post('/admin/update',(req, res) => {
+app.post('/gallery/update',(req, res) => {
   var pic = {
-    imgUrl: req.body.img,
-    houseId: req.body.id,
+    img_url: req.body.img,
+    house_id: req.body.id,
     newOrder: req.body.newOrder,
     oldOrder: req.body.oldOrder
   };
   db.changeOrder(pic, (err, data)=> {
     if(err) {
-      res.sendStatus(400);
+      res.status(400);
+      res.send('error');
     } else {
+      res.status(200);
       res.send(data);
     }
   });
