@@ -24,7 +24,7 @@ var changeOrder = (pic, cb) => {
         if (err) {
           return cb (err);
         } else if (result.length < pic.oldOrder) {
-          return cb (console.error('Order number is out of range'));
+          return cb('Order number is out of range');
         } else {
           return updateOrder(pic, pic.newOrder, (err) => {
             if(err) {
@@ -107,10 +107,8 @@ var shiftImgs = (gallery, status, cb) => {
   var recursive = (i, end, cb) => {
     return updateOrder(gallery[i], status.shiftOne(gallery[i].img_order), (err, index) => {
       if(err) { 
-        console.log(err);
         return cb(err); 
       } else if (index >= end) {
-        console.log(index);
         return cb(err); 
       } else {
         return recursive(index, end, cb);

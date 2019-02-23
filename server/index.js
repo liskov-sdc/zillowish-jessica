@@ -27,15 +27,18 @@ app.post('/gallery/update',(req, res) => {
     newOrder: req.body.newOrder,
     oldOrder: req.body.oldOrder
   };
-  db.changeOrder(pic, (err, data)=> {
-    if(err) {
-      res.status(400);
-      res.send('error');
-    } else {
-      res.status(200);
-      res.send(data);
-    }
-  });
+  if(isNaN(req.body.newOrder)) {
+    res.status(400).end();
+  } else {
+    db.changeOrder(pic, (err, data)=> {
+      if(err) {
+        res.status(400).end();
+      } else {
+        res.status(200);
+        res.send(data);
+      }
+    });
+  }
 });
  
 app.listen(port, ()=>{
