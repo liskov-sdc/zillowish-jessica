@@ -1,8 +1,8 @@
 .mainPage{
     display: grid;
-    grid-template-columns: 1fr 1fr; 
-    grid-template-rows: 1fr; 
-    grid-column-gap: 10px;
+    grid-template-columns: 500px  480px 20px; 
+    grid-template-rows: 400px; 
+    grid-column-gap: 2px;
     grid-template-areas: 
     "mainPhoto photos"
     "mainPhoto photos"
@@ -10,9 +10,10 @@
 
 .gridPage{
     display: grid;
+    align-content: center;
     grid-template-columns: 1fr 1fr 1fr 1fr; 
     grid-template-rows: 1fr 1fr; 
-    grid-column-gap: 10px;
+    grid-column-gap: 2px;
     grid-template-areas: 
     "photos photos"
 }
@@ -25,18 +26,36 @@
 .photos{
     grid-area: photos;
     display: grid;
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 250px 250px; 
     grid-template-rows: 1fr 1fr; 
-    background-color: blue;
+    grid-column-gap: 2px;
+    grid-row-gap: 2px;
+    align-content: center;
 }
 
 .photoSize{
-    height: 200px; 
+    height: 201px; 
     width: 250px;
 }
 
 .arrow{
-    background-color: aquamarine;
-    position: sticky;
-    right: 0px;
+    background-image: url('./next.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center; 
+    position: relative;
+    opacity: 0.7;
+    filter: invert(1);
+    background-color: gray;
+    border-color: black;
+    border-width: 1px;
+    right: 10px;
+    top: 185px;
+    width: 25px;
+    height: 35px;
+}
+
+.arrow:hover{
+    filter: invert(0);
+    opacity: 0.9;
 }

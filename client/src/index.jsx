@@ -4,8 +4,8 @@ var ReactDOM = require('react-dom');
 function RenderMainPage(props) {
   return (
     <div className='mainPage'>
-    <div onClick={props.onClick} className='arrow'> > </div>
-      <div className='mainPhoto'> <img src={props.mainPhoto.img_url} alt='' width="450" height="400"/> </div>
+    <button onClick={props.onClick} className='arrow'> </button>
+      <div className='mainPhoto'> <img src={props.mainPhoto.img_url} alt='' width="500" height="405"/> </div>
         <div className='photos'> 
         {
           props.gallery.map((img, index) => {
