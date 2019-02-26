@@ -10,8 +10,8 @@ exports.seed = function(knex, Promise) {
   }
 
   return Promise.all([
-    knex('houses').del(),
     knex('photos').del(),
+    knex('houses').del(),
     knex('houses').insert(houseList),
     knex('photos').insert(photoList)
   ]);

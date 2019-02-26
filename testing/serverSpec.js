@@ -13,20 +13,19 @@ describe('Zillow Clone Server', () => {
   
   before((done) => {
     dbConnect = new Client(config);
+    
     dbConnect.connect()
       .then(()=>{
-        // dbConnect.query('DELETE FROM photos')
-        // .then(()=>{
-        //   dbConnect.query('SELECT * FROM photos')
-        //     .then((result) => {
-        //       knex.seed.run().then(()=>{ 
-        //         done();
-        //       });
-        //     });
-          
-        // });
-        // //  
-        done();
+        //delete all rows
+        //seed db
+
+        knex.seed.run().then(()=>{ 
+          console.log('res: ',result);
+          done();
+          console.log('last')
+        });
+        //  
+        // done();
       });
   });
   

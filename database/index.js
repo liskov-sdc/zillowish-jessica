@@ -1,7 +1,8 @@
+// 'use strict';
 const knex = require('../knex/knex.js');
 
 var getImg = (houseId, cb) => {
-
+// async function getImg (houseId, cb){
   return knex('photos').where({
     house_id: houseId
   })

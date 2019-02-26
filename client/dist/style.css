@@ -1,0 +1,42 @@
+.mainPage{
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr; 
+    grid-column-gap: 10px;
+    grid-template-areas: 
+    "mainPhoto photos"
+    "mainPhoto photos"
+}
+
+.gridPage{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr; 
+    grid-column-gap: 10px;
+    grid-template-areas: 
+    "photos photos"
+}
+
+.mainPhoto{
+    grid-area: mainPhoto;
+    background-color:red;
+}
+
+.photos{
+    grid-area: photos;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr 1fr; 
+    background-color: blue;
+}
+
+.photoSize{
+    height: 200px; 
+    width: 250px;
+}
+
+.arrow{
+    background-color: aquamarine;
+    position: sticky;
+    right: 0px;
+}
