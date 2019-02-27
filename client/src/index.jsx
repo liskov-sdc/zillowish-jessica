@@ -81,7 +81,8 @@ class Zillow extends React.Component {
 
   componentDidMount(){
     var state = this;
-    var house = 1;
+    var path = window.location.pathname.split('/');
+    var house = path[1];
     $.ajax({
       method: 'GET',
       url: `http://localhost:3002/gallery/${house}`,
