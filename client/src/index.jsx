@@ -41,14 +41,6 @@ function getIndex(arr){
   return index;
 }
 
-function getMainPhotos (arr) {
-  var result = {};
-  result['main'] = arr[0];
-  result['group'] = arr.slice(1, 5);
-  return result;
-}
-
-
 class Zillow extends React.Component {
   constructor(props){
     super(props);
@@ -66,7 +58,6 @@ class Zillow extends React.Component {
   
   handleNext(e){
     var newPhotos = this.state.gallery.slice(3,9);
-    console.log('arr: ', newPhotos);
     this.setState({
       display: {
         main: [],
@@ -77,6 +68,14 @@ class Zillow extends React.Component {
   }
 
   handleBack(e){
+    var result = {
+      main: this.state.gallery[0],
+      group: this.state.gallery.slice(1, 5)
+    };
+    this.setState({
+      display: result,
+      mainPage: true
+    })
 
   }
 
@@ -87,25 +86,14 @@ class Zillow extends React.Component {
       method: 'GET',
       url: `http://localhost:3002/gallery/${house}`,
       success: function(data){
-        //depending on the length of the list, populate display
-        if(data.length >= 2 && state.state.mainPage){
-          var result = getMainPhotos(data);
-        } else if(data.length >= 2 && !state.state.mainPage){
-          var result = {
-            main: [],
-            group: data.slice(0,8)
-          };
-        }
-         else {
-          var result = {};
-          result['main'] = data[0];
-          result['group'] = [];
-        }
+        var result = {
+          main: data[0],
+          group: data.slice(1, 5)
+        };
         state.setState({
           houseId: house, 
           gallery: data, 
-          display: result,
-          index: getIndex(data) //why do i need this?
+          display: result
         });
       } 
     });
@@ -124,5 +112,5 @@ class Zillow extends React.Component {
 }
  
 
-ReactDOM.render(<Zillow />, document.getElementById('app'))
+ReactDOM.render(<Zillow />, document.getElementById('gallery'))
 

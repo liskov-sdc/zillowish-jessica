@@ -3,6 +3,10 @@ var bodyParser = require('body-parser');
 var app = express();
 var db = require('../database/index');
 
+// app.set('views', __dirname + 'client/dist');
+// app.set('view engine',);
+// app.use(partials());
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../client/dist'));
@@ -41,6 +45,10 @@ app.post('/gallery/update',(req, res) => {
     });
   }
 });
+
+// app.get('/:id',(req, res)=>{
+//   res.render('index');
+// });
  
 app.listen(port, ()=>{
   console.log(`Listening on Port: ${port}`);
