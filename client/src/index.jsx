@@ -18,6 +18,19 @@ function RenderMainPage(props) {
 }
 
 function RenderGroupPage(props){
+  return (
+    <div className='gridPage'>
+      <button onClick={props.goBack} className='arrowBack'> </button>
+      <div className='group'>       
+      {
+        props.gallery.map((img, index) => {
+          return <div key={index}> <img src={img.img_url} alt='' className='photoSize'/> </div>
+        })
+      } 
+      </div>
+    <button onClick={props.onClick} className='arrow'> </button>
+    </div>
+  )
 }
 
 
@@ -51,11 +64,19 @@ class Zillow extends React.Component {
     };
   }
   
-  handleClick(e){
-    console.log('yeeesss');
+  handleNext(e){
+    var newPhotos = this.state.gallery.slice(3,9);
+    console.log('arr: ', newPhotos);
+    this.setState({
+      display: {
+        main: [],
+        group: newPhotos
+      },
+      mainPage: false
+    })
   }
 
-  shiftImg(e){
+  handleBack(e){
 
   }
 
@@ -67,9 +88,15 @@ class Zillow extends React.Component {
       url: `http://localhost:3002/gallery/${house}`,
       success: function(data){
         //depending on the length of the list, populate display
-        if(data.length >= 2){
+        if(data.length >= 2 && state.state.mainPage){
           var result = getMainPhotos(data);
-        } else {
+        } else if(data.length >= 2 && !state.state.mainPage){
+          var result = {
+            main: [],
+            group: data.slice(0,8)
+          };
+        }
+         else {
           var result = {};
           result['main'] = data[0];
           result['group'] = [];
@@ -85,10 +112,14 @@ class Zillow extends React.Component {
   }
 
   render() {
-    return <RenderMainPage gallery={this.state.display.group} 
+    return ( (this.state.mainPage)
+    ? <RenderMainPage gallery={this.state.display.group} 
     mainPg={this.state.mainPage} mainPhoto={this.state.display.main}
-    onClick={this.handleClick.bind(this)}
+    onClick={this.handleNext.bind(this)}
     />
+    : <RenderGroupPage gallery={this.state.display.group} 
+      onClick={this.handleNext.bind(this) } goBack={this.handleBack.bind(this)}
+    />)
   }
 }
  

@@ -1,55 +1,7 @@
 // 'use strict';
 const knex = require('../knex/knex.js');
 
-var getImg = (houseId, cb) => {
-// async function getImg (houseId, cb){
-  return knex('photos').where({
-    house_id: houseId
-  })
-    .select ('img_url', 'img_order')
-    .orderBy('img_order')
-    .then ((rows) => {
-      //is passing when houseId does not exist?
-      cb (null, rows);
-    })
-    .catch ( (error) => {
-      console.log('ERROR: ',error)
-      cb (error);
-    });
-};
-
-var changeOrder = (pic, cb) => {
-  return getStatus (pic, (err, status) => {
-    if (err) {
-      return getImg (pic.house_id, cb);
-    } else {
-      status['house_id'] = pic.house_id;
-      return getBtwn (status, (err, result) => {
-        if (err) {
-          return cb (err);
-        } else if (result.length < pic.oldOrder || pic.oldOrder < 0) {
-          return cb('Order number is out of range');
-        } else {
-          return updateOrder(pic, pic.newOrder, (err) => {
-            if(err) {
-              return cb(err);
-            } else {
-              return shiftImgs(result, status, (err)=>{
-                if(err) {
-                  return cb(err);
-                } else {
-                  return getImg (pic.house_id, cb);
-                }
-              });
-            }
-          });
-        }
-      });
-    }
-  });
-
-};
-
+/* Helper functions */
 var getStatus = (obj, cb) => {
   var status = {};
   if (obj.oldOrder === obj.newOrder) {
@@ -92,7 +44,7 @@ var updateOrder = (pic, order, cb, indx) => {
       img_order: order
     })
     .then(()=>{ 
-      return cb(null, indx+1);
+      return cb(null, indx + 1);
     })
     .catch((error) => {
       return cb(error);
@@ -100,7 +52,7 @@ var updateOrder = (pic, order, cb, indx) => {
 };
 
 var shiftImgs = (gallery, status, cb) => {
-  if(status.add){
+  if (status.add) {
     var start = 0;
     var end = gallery.length - 1;
   } else {
@@ -110,7 +62,7 @@ var shiftImgs = (gallery, status, cb) => {
 
   var recursive = (i, end, cb) => {
     return updateOrder(gallery[i], status.shiftOne(gallery[i].img_order), (err, index) => {
-      if(err) { 
+      if (err) { 
         return cb(err); 
       } else if (index >= end) {
         return cb(err); 
@@ -122,5 +74,57 @@ var shiftImgs = (gallery, status, cb) => {
 
   return recursive(start, end, cb);
 };
+/******************************************* */
+
+
+var getImg = (house_id, cb) => {
+// async function getImg (house_id, cb){
+  return knex('photos').where({
+    house_id: house_id
+  })
+    .select ('img_url', 'img_order')
+    .orderBy('img_order')
+    .then ((rows) => {
+      //is passing when house_id does not exist?
+      cb (null, rows);
+    })
+    .catch ( (error) => {
+      console.log('ERROR: ', error);
+      cb (error);
+    });
+};
+
+var changeOrder = (pic, cb) => {
+  return getStatus (pic, (err, status) => {
+    if (err) {
+      return getImg (pic.house_id, cb);
+    } else {
+      status['house_id'] = pic.house_id;
+      return getBtwn (status, (err, result) => {
+        if (err) {
+          return cb (err);
+        } else if (result.length < pic.oldOrder || pic.oldOrder < 0) {
+          return cb('Order number is out of range');
+        } else {
+          return updateOrder(pic, pic.newOrder, (err) => {
+            if (err) {
+              return cb(err);
+            } else {
+              return shiftImgs(result, status, (err)=>{
+                if (err) {
+                  return cb(err);
+                } else {
+                  return getImg (pic.house_id, cb);
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
+
+};
+
 
 module.exports = {getImg, changeOrder};
