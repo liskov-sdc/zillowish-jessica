@@ -2,26 +2,27 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var db = require('../database/index');
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use('/:id',express.static(__dirname + '/../client/dist'));
-
+var cors = require('cors');    
 var port = 3002;
+
+app.use(express.static(__dirname + '/../client/dist'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({origin:"http://localhost:3000"}));
  
-app.get('/gallery/:id', function (req, res) {
+app.get('/gallery/:id',function (req, res) {
   var id = Number(req.params.id);
-  console.log('id= ',id);
+  console.log('id:', id)
   db.getImg(id, (err, data)=> {
     if(err) {
-      res.status(400).end();
+      res.status(404).send()
     } else {
-      res.send(data);
+      res.status(200).send(data);
     }
   });
 });
 
-app.post('/gallery/update',(req, res) => {
+app.post('/gallery/update', (req, res) => {
   var pic = {
     img_url: req.body.img,
     house_id: req.body.id,
@@ -29,14 +30,13 @@ app.post('/gallery/update',(req, res) => {
     oldOrder: req.body.oldOrder
   };
   if(isNaN(req.body.newOrder)) {
-    res.status(400).end();
+    res.status(400).send();
   } else {
     db.changeOrder(pic, (err, data)=> {
       if(err) {
-        res.status(400).end();
+        res.status(400).send();
       } else {
-        res.status(200);
-        res.send(data);
+        res.status(200).send(data);
       }
     });
   }

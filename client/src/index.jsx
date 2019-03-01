@@ -45,7 +45,7 @@ class Zillow extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      houseId: 0,
+      houseId: 1,
       gallery: [],
       display: {
         main: [],
@@ -81,8 +81,9 @@ class Zillow extends React.Component {
 
   componentDidMount(){
     var state = this;
-    var path = window.location.pathname.split('/');
-    var house = path[1];
+    // var path = window.location.pathname.split('/');
+    // var house = path[1];
+    var house = 2;
     $.ajax({
       method: 'GET',
       url: `http://localhost:3002/gallery/${house}`,
