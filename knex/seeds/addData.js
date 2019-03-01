@@ -44,19 +44,19 @@ var getPhotos = (id) => {
       house_id: id
     },
     { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/diningRoom.jpg',
-      img_order: 5,
+      img_order: 6,
       house_id: id
     },
     { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/kitchen.jpg',
-      img_order: 5,
+      img_order: 7,
       house_id: id
     },
     { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/livingRoom.jpg',
-      img_order: 5,
+      img_order: 8,
       house_id: id
     },
     { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/backyard.jpg',
-      img_order: 5,
+      img_order: 9,
       house_id: id
     }
   ];
