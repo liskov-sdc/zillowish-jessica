@@ -113,6 +113,19 @@
     overflow: auto; 
     background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
 }
+.showForm{
+    display: none;
+    position: fixed;
+    z-index: 1; /* Sit on top */
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+}
+
 
 .photoSelectGrid{
     display: grid;
@@ -158,5 +171,18 @@
     color:white;
     opacity: 1;
     text-decoration: none;
+    cursor: pointer;
+}
+
+.reArrange{
+    position: absolute;
+    font-size: 12px;
+    top: 70px;
+    right: 280px;
+    border-radius: 4px;
+    padding: 5px 9px;
+    color: #fff;
+    border: none;
+    background-color: rgb(68, 209, 211);
     cursor: pointer;
 }

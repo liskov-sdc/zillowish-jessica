@@ -12,7 +12,6 @@ app.use(cors({origin:"http://localhost:3000"}));
  
 app.get('/gallery/:id',function (req, res) {
   var id = Number(req.params.id);
-  console.log('id:', id)
   db.getImg(id, (err, data)=> {
     if(err) {
       res.status(404).send()

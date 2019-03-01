@@ -19,13 +19,23 @@ function RenderMainPage(props) {
             <button onClick={props.goBack} className='arrowBack'> </button> 
             <div className='photoContent'>
                 <img id='imgSelected' src='' alt='' width="800" height="700"/>
-                <div id='photoCount' className='photoCount'> {props.selected + 1} of {props.length} </div>
+                <button className='reArrange' onClick={props.reArrange}>Rearrange photos</button>
+                <div className='photoCount'> {props.selected + 1} of {props.length} </div>
               <span onClick={props.closeModal} className="close">&times;</span>
             </div>
             <button onClick={props.onClick} className='arrow'> </button>
           </div>
         </div>
-
+        {/* creates form when rearrange is selected */}
+        <div id="showForm" className="showForm"> 
+          <form onSubmit={props.handleSubmit}>
+            <label>
+              Name:
+              <input type="text" />
+            </label>
+            <input type="submit" value="Submit" />
+          </form>
+        </div>
     </div>
   )
 }
@@ -137,6 +147,20 @@ class Zillow extends React.Component {
     this.setState({photoSelected: null});
   }
 
+  reArrange(){
+    var modal = document.getElementById('photoModal');
+    modal.style.display = "none";
+    var img = document.getElementById('imgSelected');
+    img.src = '';
+    var form = document.getElementById('showForm');
+    form.style.display = "block";
+    this.setState({photoSelected: null});
+  }
+
+  submitForm(e){
+    console.log(e);
+  }
+
   componentDidMount(){
     var state = this;
     var path = window.location.pathname.split('/');
@@ -164,7 +188,8 @@ class Zillow extends React.Component {
     mainPg={this.state.mainPage} mainPhoto={this.state.display.main}
     onClick={this.handleNext.bind(this) } goBack={this.handleBack.bind(this)}
       imgClick={this.imgClick.bind(this)} closeModal={this.closePhotoModal.bind(this)}
-      selected={this.state.photoSelected} length={this.state.gallery.length}
+      selected={this.state.photoSelected} length={this.state.gallery.length} 
+      reArrange={this.reArrange.bind(this)} handleSubmit={this.submitForm.bind(this)}
     />
     : <RenderGroupPage gallery={this.state.display.group} 
       onClick={this.handleNext.bind(this) } goBack={this.handleBack.bind(this)}
