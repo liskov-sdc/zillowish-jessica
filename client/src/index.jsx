@@ -19,7 +19,7 @@ function RenderMainPage(props) {
             <button onClick={props.goBack} className='arrowBack'> </button> 
             <div className='photoContent'>
                 <img id='imgSelected' src='' alt='' width="800" height="700"/>
-                <button className='reArrange' onClick={props.reArrange}>Rearrange photos</button>
+                {/* <button className='reArrange' onClick={props.reArrange}>Rearrange photos</button> */}
                 <div className='photoCount'> {props.selected + 1} of {props.length} </div>
               <span onClick={props.closeModal} className="close">&times;</span>
             </div>

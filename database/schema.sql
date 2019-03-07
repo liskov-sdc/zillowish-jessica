@@ -13,6 +13,5 @@ CREATE TABLE IF NOT EXISTS photos (
     photo_id SERIAL PRIMARY KEY,
     img_url varchar(150),
     img_order INTEGER,
-    house_id INTEGER,
-    FOREIGN KEY (house_id) REFERENCES houses
+    house_id INTEGER
 );

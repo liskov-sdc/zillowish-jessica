@@ -8,13 +8,13 @@ exports.seed = function(knex, Promise) {
     var a = getPhotos(i + 1);
     photoList = photoList.concat(a);
   }
-
+  
   return Promise.all([
-    knex('photos').del(),
-    knex('houses').del(),
-    knex('houses').insert(houseList),
-    knex('photos').insert(photoList)
-  ]);
+        knex('photos').del(),
+        knex('houses').del(),
+        knex('houses').insert(houseList),
+        knex('photos').insert(photoList)
+      ]);
 };
 
 var getPhotos = (id) => {

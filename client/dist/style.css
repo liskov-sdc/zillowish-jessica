@@ -140,7 +140,7 @@
 .photoCount{
     position: absolute;
     top: 130px;
-    right: 280px;
+    left: 840px;
     min-width: 30px;
     border-radius: 3px;
     padding: 5px 9px;
