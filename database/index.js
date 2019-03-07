@@ -2,17 +2,20 @@
 const knex = require('../knex/knex.js');
 
 /* Helper functions */
+
+//determines if the photos in between the new & old order is going 
+//to increment or decrement and sets the starting/end points
 var getStatus = (obj, cb) => {
   var status = {};
   if (obj.oldOrder === obj.newOrder) {
-    return cb('equal', null);
+    return cb('equal', null); 
   } else if (obj.oldOrder > obj.newOrder) {
-    status.shiftOne = (num) => { return num + 1; };
+    status.shiftBy = (num) => { return num + 1; };
     status.head = obj.newOrder;
     status.tail = obj.oldOrder;
     status.add = true;
   } else if (obj.oldOrder < obj.newOrder) {
-    status.shiftOne = (num) => { return num - 1; };
+    status.shiftBy = (num) => { return num - 1; };
     status.head = obj.oldOrder;
     status.tail = obj.newOrder;
     status.add = false;
@@ -20,7 +23,9 @@ var getStatus = (obj, cb) => {
   return cb(null, status);
 };
 
-var getBtwn = (obj, cb) => {
+//returns an array of the photos that are between the 
+//start(head) and end(tail) points that need updating
+var getBtwnPhotos = (obj, cb) => {
   knex('photos').where({
     house_id: obj.house_id
   })
@@ -34,8 +39,8 @@ var getBtwn = (obj, cb) => {
     });
 };
 
+//updates the order for a single photo, and returns the next index
 var updateOrder = (pic, order, cb, indx) => {
-  
   knex('photos').where({
     img_url: pic.img_url,
     house_id: pic.house_id
@@ -51,6 +56,7 @@ var updateOrder = (pic, order, cb, indx) => {
     });
 };
 
+//function that will update an array of photos
 var shiftImgs = (gallery, status, cb) => {
   if (status.add) {
     var start = 0;
@@ -60,25 +66,26 @@ var shiftImgs = (gallery, status, cb) => {
     var end = gallery.length;
   }
 
-  var recursive = (i, end, cb) => {
-    return updateOrder(gallery[i], status.shiftOne(gallery[i].img_order), (err, index) => {
+  //method to update each image when we rearrange the photo's order
+  var updateEachImg = (i, end, cb) => {
+    return updateOrder(gallery[i], status.shiftBy(gallery[i].img_order), (err, index) => {
+      //check if the returned index is valid to update next img
       if (err) { 
         return cb(err); 
       } else if (index >= end) {
         return cb(err); 
       } else {
-        return recursive(index, end, cb);
+        return updateEachImg(index, end, cb);
       }
     }, i);
   };
 
-  return recursive(start, end, cb);
+  return updateEachImg(start, end, cb);
 };
 /******************************************* */
 
-
+//returns array for photos belonging to a specific house_id
 var getImg = (house_id, cb) => {
-// async function getImg (house_id, cb){
   return knex('photos').where({
     house_id: house_id
   })
@@ -100,7 +107,7 @@ var changeOrder = (pic, cb) => {
       return getImg (pic.house_id, cb);
     } else {
       status['house_id'] = pic.house_id;
-      return getBtwn (status, (err, result) => {
+      return getBtwnPhotos (status, (err, result) => {
         if (err) {
           return cb (err);
         } else if (result.length < pic.oldOrder || pic.oldOrder < 0) {
