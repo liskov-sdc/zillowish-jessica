@@ -34,6 +34,8 @@ From within the root directory:
 
 ```sh
 npm install -g webpack
-npm install
+npm install knex -g
+npm install -g eslint
+npm install -g hackreactor-labs/eslint-config-hackreactor
 ```
 
