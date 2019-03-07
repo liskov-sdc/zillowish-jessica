@@ -31,6 +31,7 @@ var getBtwnPhotos = (obj, cb) => {
   })
     .whereBetween('img_order', [obj.head, obj.tail])
     .select('img_url', 'img_order', 'house_id')
+    .orderBy('img_order')
     .then((rows) => {
       return cb(null, rows);
     })
@@ -82,22 +83,44 @@ var shiftImgs = (gallery, status, cb) => {
 
   return updateEachImg(start, end, cb);
 };
+
+var checkHouseID = (id, cb) => {
+  knex('houses').where({
+    name: id
+  })
+  .select('*')
+    .then((rows) => {
+      if(rows.length <= 0) return cb(false);
+      return cb(true);
+    })
+    .catch((error) => {
+      console.log('error');
+      return false;
+    });
+};
 /******************************************* */
 
 //returns array for photos belonging to a specific house_id
 var getImg = (house_id, cb) => {
-  return knex('photos').where({
-    house_id: house_id
-  })
-    .select ('img_url', 'img_order')
-    .orderBy('img_order')
-    .then ((rows) => {
-      //is passing when house_id does not exist?
-      cb (null, rows);
-    })
-    .catch ( (error) => {
-      console.log('ERROR: ', error);
-      cb (error);
+    //check if house id exists
+   checkHouseID(house_id, function(houseExists){
+     if(houseExists){
+      return knex('photos').where({
+        house_id: house_id
+      })
+        .select ('img_url', 'img_order')
+        .orderBy('img_order')
+        .then ((rows) => {
+          //is passing when house_id does not exist?
+          cb (null, rows);
+        })
+        .catch ( (error) => {
+          console.log('ERROR: ', error);
+          cb (error);
+        });
+      } else {
+        return cb(true, null);
+      }
     });
 };
 

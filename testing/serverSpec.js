@@ -16,67 +16,62 @@ describe('Zillow Clone Server', () => {
     
     dbConnect.connect()
       .then(()=>{
-        //delete all rows
-        //seed db
-
         knex.seed.run().then(()=>{ 
-          console.log('res: ',result);
           done();
-          console.log('last')
         });
-        //  
-        // done();
       });
   });
   
-  after(()=> {
-    dbConnect.end();
-    //drop db
-  });
-  
-  xit('should shift images to the right when current img indx > new img indx', (done) => {
+  it('should shift images to the right when current img indx > new img indx', (done) => {
     var expected = [
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/apartment-323780.jpg', img_order: 0},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/daylight-1396122.jpg',img_order: 1},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/barn-314937.jpg', img_order: 2},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/blue-sky-462358.jpg', img_order: 3},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/country-463996.jpg', img_order: 4},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/driveway-186077.jpg', img_order: 5},
-    ];
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/apartment-323780.jpg","img_order":0},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath2.jpg","img_order":1},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed1.jpg","img_order":2},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed2.jpg","img_order":3},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed3.jpeg","img_order":4},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath1.jpeg","img_order":5},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/diningRoom.jpg","img_order":6},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/kitchen.jpg","img_order":7},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/livingRoom.jpg","img_order":8},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/backyard.jpg","img_order":9}];
     
     request.post({
       url: 'http://localhost:3002/gallery/update',
       form: {
-        img: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/daylight-1396122.jpg',
+        img: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath2.jpg',
         id: 1,
         newOrder: 1,
         oldOrder: 4
       }
     }, function (error, response, body) {
-      var list = JSON.parse(body)
+      var list = JSON.parse(body);
       expect(response.statusCode).to.equal(200);
       expect(list).to.deep.equal(expected);
       done();
     });
   });
   
-  xit('should shift images to the left when current img indx < new img indx', (done) => {
+  it('should shift images to the left when current img indx < new img indx', (done) => {
+
     var expected = [
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/apartment-323780.jpg', img_order: 0},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/blue-sky-462358.jpg', img_order: 1},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/country-463996.jpg', img_order: 2},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/daylight-1396122.jpg',img_order: 3},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/barn-314937.jpg', img_order: 4},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/driveway-186077.jpg', img_order: 5},
-    ];
-    
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/apartment-323780.jpg","img_order":0},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath2.jpg","img_order":1},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed2.jpg","img_order":2},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed3.jpeg","img_order":3},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath1.jpeg","img_order":4},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed1.jpg","img_order":5},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/diningRoom.jpg","img_order":6},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/kitchen.jpg","img_order":7},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/livingRoom.jpg","img_order":8},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/backyard.jpg","img_order":9}];
+
     request.post({
       url: 'http://localhost:3002/gallery/update',
       form: {
-        img: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/barn-314937.jpg',
+        img: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed1.jpg',
         id: 1,
-        newOrder: 4,
-        oldOrder: 1
+        newOrder: 5,
+        oldOrder: 2
       }
     }, function (error, response, body) {
       var list = JSON.parse(body)
@@ -88,18 +83,21 @@ describe('Zillow Clone Server', () => {
 
   it('should not shift images when current img indx === new img indx', (done) => {
     var expected = [
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/apartment-323780.jpg', img_order: 0},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/barn-314937.jpg', img_order: 1},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/blue-sky-462358.jpg', img_order: 2},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/country-463996.jpg', img_order: 3},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/daylight-1396122.jpg',img_order: 4},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/driveway-186077.jpg', img_order: 5},
-    ];
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/apartment-323780.jpg","img_order":0},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath2.jpg","img_order":1},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed2.jpg","img_order":2},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed3.jpeg","img_order":3},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath1.jpeg","img_order":4},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed1.jpg","img_order":5},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/diningRoom.jpg","img_order":6},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/kitchen.jpg","img_order":7},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/livingRoom.jpg","img_order":8},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/backyard.jpg","img_order":9}];
     
     request.post({
       url: 'http://localhost:3002/gallery/update',
       form: {
-        img: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/daylight-1396122.jpg',
+        img: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath1.jpeg',
         id: 1,
         newOrder: 4,
         oldOrder: 4
@@ -116,9 +114,9 @@ describe('Zillow Clone Server', () => {
     request.post({
       url: 'http://localhost:3002/gallery/update',
       form: {
-        img: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/daylight-1396122.jpg',
+        img: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath1.jpeg',
         id: 1,
-        newOrder: 10,
+        newOrder: 11,
         oldOrder: 4
       }
     }, function (error, response, body) {
@@ -131,7 +129,7 @@ describe('Zillow Clone Server', () => {
     request.post({
       url: 'http://localhost:3002/gallery/update',
       form: {
-        img: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/daylight-1396122.jpg',
+        img: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath1.jpeg',
         id: 1,
         newOrder: 'dummy',
         oldOrder: 4
@@ -144,13 +142,17 @@ describe('Zillow Clone Server', () => {
 
   it('should get gallery from house_id', (done) =>{
     var expected = [
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/apartment-323780.jpg', img_order: 0},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/barn-314937.jpg', img_order: 1},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/blue-sky-462358.jpg', img_order: 2},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/country-463996.jpg', img_order: 3},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/daylight-1396122.jpg',img_order: 4},
-      { img_url: 'https://s3-us-west-1.amazonaws.com/zillowgallerydata/driveway-186077.jpg', img_order: 5},
-    ];
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/apartment-323780.jpg","img_order":0},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath2.jpg","img_order":1},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed2.jpg","img_order":2},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed3.jpeg","img_order":3},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bath1.jpeg","img_order":4},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/bed1.jpg","img_order":5},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/diningRoom.jpg","img_order":6},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/kitchen.jpg","img_order":7},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/livingRoom.jpg","img_order":8},
+      {"img_url":"https://s3-us-west-1.amazonaws.com/zillowgallerydata/backyard.jpg","img_order":9}];
+
     request.get({
       url: 'http://localhost:3002/gallery/1'
     }, function (error, response, body) {
@@ -168,7 +170,10 @@ describe('Zillow Clone Server', () => {
       expect(response.statusCode).to.equal(400);
       done();
     });
-
   });
+
+  after(()=> {
+    dbConnect.end();
+  })
 
 });

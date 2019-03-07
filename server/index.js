@@ -14,7 +14,7 @@ app.get('/gallery/:id',function (req, res) {
   var id = Number(req.params.id);
   db.getImg(id, (err, data)=> {
     if(err) {
-      res.status(404).send()
+      res.status(400).send()
     } else {
       res.status(200).send(data);
     }
