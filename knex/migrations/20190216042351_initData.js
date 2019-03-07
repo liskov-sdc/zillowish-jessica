@@ -9,10 +9,12 @@ exports.up = function(knex, Promise) {
       table.increments('photo_id').primary();
       table.string('img_url'); 
       table.integer('img_order');
-      table.integer('house_id');
-      table.foreign('house_id').references('house_id').inTable('houses');
-    }),
-    knex.seed.run() 
+      table.integer('house_id')
+            .unsigned()
+            .references('house_id')
+            .on('houses')
+            .onDelete('cascade');
+    })
   ]);
 };
   
