@@ -167,7 +167,7 @@ class Zillow extends React.Component {
     var house = path[1];
     $.ajax({
       method: 'GET',
-      url: `http://ec2-54-188-46-106.us-west-2.compute.amazonaws.com/${house }`,
+      url: `http://ec2-54-188-46-106.us-west-2.compute.amazonaws.com:3002/gallery/${house}`,
       success: function(data){
         var result = {
           main: data[0],

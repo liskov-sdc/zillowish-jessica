@@ -8,7 +8,7 @@ var port = 3002;
 app.use(express.static(__dirname + '/../client/dist', {maxAge: 5000})); //sets maxAge to 5sec
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({origin:"http://ec2-54-188-46-106.us-west-2.compute.amazonaws.com/"}));
+app.use(cors());
  
 app.get('/gallery/:id',function (req, res) {
   var id = Number(req.params.id);
