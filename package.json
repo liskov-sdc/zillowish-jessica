@@ -8,9 +8,9 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "react": "webpack -d --watch",
-    "start": "nodemon server/index.js",
-    "seed": "NODE_OPTIONS=--max-old-space-size=8192 knex seed:run",
+    "react-dev": "webpack -d --watch",
+    "node-start": "nodemon server/index.js",
+    "db-seed": "knex seed:run",
     "testSpecs": "node_modules/.bin/mocha testing"
   },
   "dependencies": {
@@ -20,8 +20,6 @@
     "express": "^4.16.4",
     "knex": "^0.16.3",
     "mocha": "^5.2.0",
-    "perf_hooks": "0.0.1",
-    "performance": "^1.1.1",
     "pg": "^7.8.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
