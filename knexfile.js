@@ -1,5 +1,5 @@
 // Update with your config settings.
-var db = require('./config');
+var db = require('./config').development;
 
 module.exports = {
   development: {
@@ -9,7 +9,7 @@ module.exports = {
       directory: __dirname + '/knex/migrations'
     },
     seeds: {
-      directory: __dirname + '/knex/seeds'
+      directory: __dirname + '/knex/10MSeed'
     }
   },
 
