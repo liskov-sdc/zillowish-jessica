@@ -1,4 +1,4 @@
-var performance = require('perf_hooks').performance;
+const performance = require('perf_hooks').performance;
 
 const maxNumPictures = 8;
 var LinkedList = function() {
@@ -67,10 +67,10 @@ exports.seed = async function(knex) {
   }
   
   var t1 = performance.now();
-  console.log("Call to seed took " + (t1 - t0) + " milliseconds.")
+  console.log("Call to seed took " + (t1 - t0) + " milliseconds.");
 };
 
-var getRandomInt= (max) => {
+var getRandomInt = (max) => {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
