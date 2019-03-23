@@ -1,0 +1,12 @@
+Houses table
+CREATE TABLE houses (
+  house_id int PRIMARY KEY, 
+  name text);
+
+Photos table
+CREATE TABLE photos (
+  photo_id text PRIMARY KEY,
+  img_url text,
+  img_order int,
+  house_id int
+);
