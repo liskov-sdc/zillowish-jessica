@@ -1,7 +1,7 @@
 const cassandra = require('cassandra-driver');
 const performance = require('perf_hooks').performance;
-const getTime = require('time-uuid/time');
-const getIdByTime = require('time-uuid/get-by-time');
+// const getTime = require('time-uuid/time');
+// const getIdByTime = require('time-uuid/get-by-time');
 
 var houseSeed = async function() {
   const client = new cassandra.Client({ 
@@ -46,8 +46,8 @@ var photoSeed = async function() {
   const maxNumPictures = 8;
   var dataSize = 10000001;
   let i = 0;
-  const query = `INSERT INTO photos (photo_id, img_url, 
-    img_order, house_id) values (?, ?, ?, ?)`;
+  const query = `INSERT INTO photos (img_url, 
+    img_order, house_id) values (?, ?, ?)`;
   var params = [];
   while(i < dataSize) {
     j = 0;
@@ -56,7 +56,7 @@ var photoSeed = async function() {
       let photoObj = {};
       photoObj.query = query;
       var randomNum = getRandomInt(1000);
-      photoObj.params = [getIdByTime(getTime()), `https://loremflickr.com/250/200?random=${randomNum+j}`, j, i];
+      photoObj.params = [`https://loremflickr.com/250/200?random=${randomNum+j}`, j, i];
       params.push(photoObj);
       j++;
     }
@@ -71,5 +71,5 @@ var photoSeed = async function() {
   client.shutdown();
 }
 
-houseSeed();
+// houseSeed();
 photoSeed();

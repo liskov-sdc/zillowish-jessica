@@ -5,8 +5,8 @@ CREATE TABLE houses (
 
 Photos table
 CREATE TABLE photos (
-  photo_id text PRIMARY KEY,
   img_url text,
   img_order int,
-  house_id int
+  house_id int,
+  PRIMARY KEY(house_id, img_order)
 );
