@@ -134,12 +134,12 @@
     grid-template-rows: 1fr; 
     grid-column-gap: 2px;
     grid-template-areas: 
-    ". photoContent ."
+    ". photoContent .";
 }
 
 .photoCount{
     position: absolute;
-    top: 80px;
+    top: 110px;
     left: 840px;
     min-width: 30px;
     border-radius: 3px;
@@ -186,4 +186,29 @@
     border: none;
     background-color: rgb(68, 209, 211);
     cursor: pointer;
+}
+.pictureOptions{
+    display: block;
+    width: 87%;
+}
+.updateTextbox {
+    height: 22px;
+    width: 110px;
+    float: right;
+    margin-left: 3px;
+    border-radius: 3px;
+}
+.updatePhoto, .deletePhoto {
+    color: #fff;
+    border-color: #0074e4;
+    background-color: #0074e4;
+    height: 22px;
+    width: 110px;
+    float: right;
+    margin-left: 3px;
+    border-radius: 3px;
+}
+.deletePhoto:hover, .updatePhoto:hover {
+    opacity:.6;
+    background-color: black;
 }
