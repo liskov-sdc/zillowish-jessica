@@ -14,7 +14,7 @@ app.get('/gallery/:id',function (req, res) {
   var id = Number(req.params.id);
   db.getImg(id, (err, data)=> {
     if (err) {
-      res.status(400).send();
+      res.status(400).send(err);
     } else {
       res.status(200).send(data);
     }
@@ -51,8 +51,8 @@ app.delete('/gallery/:id/photo/:photo', (req, res) => {
   });
 });
 
-app.put('/gallery/:id/photo/:photo/url/:url', (req, res) => {
-  db.updateImgURL(req.params.id, req.params.photo, req.params.url, (err) => {
+app.put('/gallery/:id/photo/:photo/img/:img', (req, res) => {
+  db.updateImgURL(req.params.id, req.params.photo, req.params.img, (err) => {
     if (err) {
       res.status(400).send();
     } else {
@@ -61,9 +61,8 @@ app.put('/gallery/:id/photo/:photo/url/:url', (req, res) => {
   });
 });
 
-app.post('/gallery/:id/url/:url', (req, res) => {
-  console.log('hello')
-  db.postPhoto(req.params.id, req.params.url, (err) => {
+app.post('/gallery/:id/img/:img', (req, res) => {
+  db.postPhoto(req.params.id, req.params.img, (err) => {
     if (err) {
       res.status(400).send();
     } else {

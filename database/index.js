@@ -126,8 +126,8 @@ var shiftImgs = (gallery, status, cb) => {
 };
 
 var checkHouseID = (id, cb) => {
-  knex('houses').where({
-    name: id
+  knex('photos').where({
+    house_id: id
   })
   .select('*')
     .then((rows) => {

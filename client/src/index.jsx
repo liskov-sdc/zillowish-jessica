@@ -5,11 +5,11 @@ function RenderMainPage(props) {
   return (
     <div className='mainPage'>
       <button onClick={props.onClick} className='arrow'> </button>
-        <div className='mainPhoto'> <img id={props.mainPhoto.img_order} onClick={props.imgClick} src={props.mainPhoto.img_url} alt='' width="500" height="405"/> </div>
+        <div className='mainPhoto'> <img id={0} onClick={props.imgClick} src={props.mainPhoto.img_url} alt='' width="500" height="405"/> </div>
         <div className='photos'> 
         {
           props.gallery.map((img, index) => {
-            return <div key={index}> <img id={img.img_order} onClick={props.imgClick} src={img.img_url} alt='' className='photoSize'/> </div>
+            return <div key={index}> <img id={index + 1} onClick={props.imgClick} src={img.img_url} alt='' className='photoSize'/> </div>
           })
         } 
         </div>
@@ -108,7 +108,7 @@ class Zillow extends React.Component {
     var url = this.state.value;
     $.ajax({
       method: 'PUT',
-      url: `http://localhost:3002/gallery/${house}/photo/${this.state.photoSelected}/url/${this.state.value}`,
+      url: `http://localhost:3002/gallery/${house}/photo/${this.state.photoSelected}/url/${url}`,
       success: function(data) {
         //update gallery
         $.ajax({
@@ -240,6 +240,7 @@ class Zillow extends React.Component {
       method: 'GET',
       url: `http://localhost:3002/gallery/${house}`,
       success: function(data){
+        console.log('data', data)
         var result = {
           main: data[0],
           group: data.slice(1, 5)
