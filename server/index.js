@@ -1,3 +1,5 @@
+require('newrelic');
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
@@ -66,7 +68,7 @@ app.post('/gallery/:id/img/:img', (req, res) => {
     if (err) {
       res.status(400).send();
     } else {
-      res.status(200).send();
+      res.status(201).send();
     }
   });
 });

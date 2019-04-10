@@ -105,10 +105,11 @@ class Zillow extends React.Component {
     var path = window.location.pathname.split('/');
     var house = path[1];
     var self = this;
-    var url = this.state.value;
+    // var url = this.state.value;
+    const {photoSelected, value} = this.state;
     $.ajax({
       method: 'PUT',
-      url: `http://localhost:3002/gallery/${house}/photo/${this.state.photoSelected}/url/${url}`,
+      url: `http://localhost:3002/gallery/${house}/photo/${photoSelected}/url/${value}`,
       success: function(data) {
         //update gallery
         $.ajax({
@@ -132,7 +133,9 @@ class Zillow extends React.Component {
     this.closePhotoModal();
   }
   handleChange(event) {
-    this.setState({value: event.target.value});
+    // this.setState({value: event.target.value});
+    const {value} = event.target;
+    this.setState({value});
   }
   deletePhoto(e) {
     var path = window.location.pathname.split('/');
