@@ -57,6 +57,47 @@ var updateOrder = (pic, order, cb, indx) => {
     });
 };
 
+var deletePhoto = (house, picture, cb) => {
+  knex('photos').where({
+    house_id: house,
+    img_order: picture
+  })
+  .del()
+  .then((rows) => {
+    return cb(null, rows);
+  })
+  .catch((error) => {
+    return cb(error);
+  });
+}
+
+var postPhoto = (house, url, cb) => {
+  knex('photos').where({
+    house_id: house
+  })
+  .insert({house_id: house, img_url: url})
+  .then((rows) => {
+    return cb(null, rows);
+  })
+  .catch((error) => {
+    return cb(error);
+  });
+}
+
+var updateImgURL = (house, picture, url, cb) => {
+  knex('photos').where({
+    house_id: house,
+    img_order: picture
+  })
+  .update('img_url', 'https://loremflickr.com/250/200?random=' + url)
+  .then((rows) => {
+    return cb(null, rows);
+  })
+  .catch((error) => {
+    return cb(error);
+  });
+}
+
 //function that will update an array of photos
 var shiftImgs = (gallery, status, cb) => {
   if (status.add) {
@@ -85,8 +126,8 @@ var shiftImgs = (gallery, status, cb) => {
 };
 
 var checkHouseID = (id, cb) => {
-  knex('houses').where({
-    name: id
+  knex('photos').where({
+    house_id: id
   })
   .select('*')
     .then((rows) => {
@@ -157,4 +198,4 @@ var changeOrder = (pic, cb) => {
 };
 
 
-module.exports = {getImg, changeOrder};
+module.exports = {getImg, changeOrder, deletePhoto, updateImgURL, postPhoto};
